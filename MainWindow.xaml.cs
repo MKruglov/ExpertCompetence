@@ -20,9 +20,43 @@ namespace expertcompetncegeneration
     /// </summary>
     public partial class MainWindow : Window
     {
+        public class Phone
+        {
+            public string Title { get; set; }
+            public string Company { get; set; }
+            public int Price { get; set; }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
         }
+        private void AddData_Click(object sender, RoutedEventArgs e)
+        {
+            string text = textBox1.Text;
+            if (text != "")
+            {
+                MessageBox.Show(text);
+            }
+        }
+        private void ShowData_Click(object sender, RoutedEventArgs e)
+        {
+            string text = textBox1.Text;
+            if (text != "")
+            {
+                MessageBox.Show(text);
+                List<Phone> phonesList = new List<Phone>
+                {
+                    new Phone {Title="S", Company="Apple", Price=54990 },
+                    new Phone {Title="Lumia 950", Company="Microsoft", Price=39990 },
+                    new Phone {Title="Nexus 5X", Company="Google", Price=29990 }
+                };
+                phonesGrid.ItemsSource = phonesList;
+
+            }
+        }
+   
     }
+
+
 }
