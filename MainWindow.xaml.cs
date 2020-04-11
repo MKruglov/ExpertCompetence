@@ -29,6 +29,7 @@ namespace expertcompetncegeneration
 
         public MainWindow()
         {
+            string connectionString = "Data Source = DESKTOP - NST5P2P; Initial Catalog = ExpertCompetence; Integrated Security = True";
             InitializeComponent();
         }
         private void AddData_Click(object sender, RoutedEventArgs e)
