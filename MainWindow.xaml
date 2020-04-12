@@ -20,7 +20,7 @@
         <Button Grid.Column="2" Grid.Row="1" x:Name="updateButton" Content="Обновить" Click="updateButton_Click" />
         <Button Grid.Column="2" Grid.Row="2" x:Name="deleteButton" Content="Удалить" Click="deleteButton_Click" />
         <Grid Background="Lavender">
-            <DataGrid x:Name="phonesGrid" AutoGenerateColumns="True" ItemsSource="{DynamicResource ResourceKey=phones}" Margin="0,0,-276,-301">
+            <DataGrid x:Name="phonesGrid" AutoGenerateColumns="True"  Margin="0,0,-276,-301">
                 <DataGrid.Resources>
                 </DataGrid.Resources>
             </DataGrid>

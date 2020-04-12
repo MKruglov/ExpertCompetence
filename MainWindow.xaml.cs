@@ -65,7 +65,37 @@ namespace expertcompetncegeneration
             }
 
         }
-   
+        private void UpdateDB()
+        {
+            DataTable phonesTable = new DataTable();
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            SqlCommandBuilder comandbuilder = new SqlCommandBuilder(adapter);
+            adapter.Update(phonesTable);
+        }
+
+        private void updateButton_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateDB();
+        }
+
+        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (phonesGrid.SelectedItems != null)
+            {
+                for (int i = 0; i < phonesGrid.SelectedItems.Count; i++)
+                {
+                    DataRowView datarowView = phonesGrid.SelectedItems[i] as DataRowView;
+                    if (datarowView != null)
+                    {
+                        DataRow dataRow = (DataRow)datarowView.Row;
+                        dataRow.Delete();
+                    }
+                }
+            }
+            UpdateDB();
+        }
+
+
     }
 
 
