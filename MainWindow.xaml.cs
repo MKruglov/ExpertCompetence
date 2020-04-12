@@ -36,11 +36,7 @@ namespace expertcompetncegeneration
         }
         private void AddData_Click(object sender, RoutedEventArgs e)
         {
-            string text = textBox1.Text;
-            if (text != "")
-            {
-                MessageBox.Show(text);
-            }
+          
         }
         private void ShowData_Click(object sender, RoutedEventArgs e)
         {
