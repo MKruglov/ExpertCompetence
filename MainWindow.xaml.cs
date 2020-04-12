@@ -22,6 +22,9 @@ namespace expertcompetncegeneration
     /// </summary>
     public partial class MainWindow : Window
     {
+        string connectionString;
+        SqlDataAdapter adapter;
+        DataTable phonesTable;
         public class Phone
         {
             public string Title { get; set; }
@@ -32,17 +35,8 @@ namespace expertcompetncegeneration
         public MainWindow()
         {
             InitializeComponent();
-         
         }
-        private void AddData_Click(object sender, RoutedEventArgs e)
-        {
-            string text = textBox1.Text;
-            if (text != "")
-            {
-                MessageBox.Show(text);
-            }
-        }
-        private void ShowData_Click(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             string connectionString = "Data Source = DESKTOP-NST5P2P; Initial Catalog = ExpertCompetence; Integrated Security = True";
             string sql = "SELECT * FROM Users";
@@ -50,13 +44,13 @@ namespace expertcompetncegeneration
             SqlConnection connection = new SqlConnection(connectionString);
             SqlCommand command = new SqlCommand(sql, connection);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
-            connection.Open();
-            adapter.Fill(phonesTable);
-            phonesGrid.ItemsSource = phonesTable.DefaultView;
+        
             try
             {
-              
-         
+                connection.Open();
+                adapter.Fill(phonesTable);
+                phonesGrid.ItemsSource = phonesTable.DefaultView;
+
             }
             catch (Exception ex)
             {
@@ -69,7 +63,37 @@ namespace expertcompetncegeneration
             }
 
         }
-   
+        private void UpdateDB()
+        {
+            adapter = new SqlDataAdapter();
+            SqlCommandBuilder comandbuilder = new SqlCommandBuilder(adapter);
+            adapter.Update(phonesTable);
+        }
+
+        private void updateButton_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateDB();
+        }
+
+        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (phonesGrid.SelectedItems != null)
+            {
+                for (int i = 0; i < phonesGrid.SelectedItems.Count; i++)
+                {
+                    DataRowView datarowView = phonesGrid.SelectedItems[i] as DataRowView;
+                    if (datarowView != null)
+                    {
+                        DataRow dataRow = (DataRow)datarowView.Row;
+                        dataRow.Delete();
+                    }
+                }
+            }
+            UpdateDB();
+        }
+
+
+
     }
 
 
