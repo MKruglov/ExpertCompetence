@@ -26,7 +26,6 @@ namespace ExpertCompetence.Models
         public virtual DbSet<Review> Review { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserFeature> UserFeature { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -310,21 +309,7 @@ namespace ExpertCompetence.Models
                     .HasConstraintName("FK__user_feat__user___403A8C7D");
             });
 
-            modelBuilder.Entity<Users>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.Property(e => e.F)
-                    .IsRequired()
-                    .HasColumnName("f")
-                    .HasMaxLength(10)
-                    .IsFixedLength();
-
-                entity.Property(e => e.User)
-                    .HasMaxLength(10)
-                    .IsFixedLength();
-            });
-
+          
             OnModelCreatingPartial(modelBuilder);
         }
 

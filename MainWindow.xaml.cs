@@ -27,15 +27,20 @@ namespace expertcompetncegeneration
         public MainWindow()
         {
             InitializeComponent();
+            phonesGrid.RowEditEnding += PhonesGrid_RowEditEnding;
+
         }
-        private void AddData_Click(object sender, RoutedEventArgs e)
+
+        private void PhonesGrid_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
-          
+            UpdateDB();
         }
+
         private void ShowData_Click(object sender, RoutedEventArgs e)
         {
+            string tablename = PickedTable.Text;
             string connectionString = "Data Source = DESKTOP-NST5P2P; Initial Catalog = ExpertCompetence; Integrated Security = True";
-            string sql = "SELECT * FROM Users";
+            string sql =  $"SELECT * FROM {tablename}";
             phonesTable = new DataTable();
             SqlConnection connection = new SqlConnection(connectionString);
             SqlCommand command = new SqlCommand(sql, connection);
@@ -86,6 +91,7 @@ namespace expertcompetncegeneration
             }
             UpdateDB();
         }
+   
 
 
     }
