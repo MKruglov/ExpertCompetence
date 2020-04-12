@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,8 +31,8 @@ namespace expertcompetncegeneration
 
         public MainWindow()
         {
-            string connectionString = "Data Source = DESKTOP - NST5P2P; Initial Catalog = ExpertCompetence; Integrated Security = True";
             InitializeComponent();
+         
         }
         private void AddData_Click(object sender, RoutedEventArgs e)
         {
@@ -42,19 +44,30 @@ namespace expertcompetncegeneration
         }
         private void ShowData_Click(object sender, RoutedEventArgs e)
         {
-            string text = textBox1.Text;
-            if (text != "")
+            string connectionString = "Data Source = DESKTOP-NST5P2P; Initial Catalog = ExpertCompetence; Integrated Security = True";
+            string sql = "SELECT * FROM Users";
+            DataTable phonesTable = new DataTable();
+            SqlConnection connection = new SqlConnection(connectionString);
+            SqlCommand command = new SqlCommand(sql, connection);
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            connection.Open();
+            adapter.Fill(phonesTable);
+            phonesGrid.ItemsSource = phonesTable.DefaultView;
+            try
             {
-                MessageBox.Show(text);
-                List<Phone> phonesList = new List<Phone>
-                {
-                    new Phone {Title="S", Company="Apple", Price=54990 },
-                    new Phone {Title="Lumia 950", Company="Microsoft", Price=39990 },
-                    new Phone {Title="Nexus 5X", Company="Google", Price=29990 }
-                };
-                phonesGrid.ItemsSource = phonesList;
-
+              
+         
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+            }
+
         }
    
     }
