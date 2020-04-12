@@ -22,17 +22,11 @@ namespace expertcompetncegeneration
     /// </summary>
     public partial class MainWindow : Window
     {
-        public class Phone
-        {
-            public string Title { get; set; }
-            public string Company { get; set; }
-            public int Price { get; set; }
-        }
-
+        SqlDataAdapter adapter;
+        DataTable phonesTable;
         public MainWindow()
         {
             InitializeComponent();
-         
         }
         private void AddData_Click(object sender, RoutedEventArgs e)
         {
@@ -42,10 +36,10 @@ namespace expertcompetncegeneration
         {
             string connectionString = "Data Source = DESKTOP-NST5P2P; Initial Catalog = ExpertCompetence; Integrated Security = True";
             string sql = "SELECT * FROM Users";
-            DataTable phonesTable = new DataTable();
+            phonesTable = new DataTable();
             SqlConnection connection = new SqlConnection(connectionString);
             SqlCommand command = new SqlCommand(sql, connection);
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            adapter = new SqlDataAdapter(command);
             connection.Open();
             adapter.Fill(phonesTable);
             phonesGrid.ItemsSource = phonesTable.DefaultView;
@@ -66,9 +60,7 @@ namespace expertcompetncegeneration
 
         }
         private void UpdateDB()
-        {
-            DataTable phonesTable = new DataTable();
-            SqlDataAdapter adapter = new SqlDataAdapter();
+        {        
             SqlCommandBuilder comandbuilder = new SqlCommandBuilder(adapter);
             adapter.Update(phonesTable);
         }
